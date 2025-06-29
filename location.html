@@ -7,8 +7,8 @@
     <title>Location - Falak Beauty Saloon</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-pink: #ff69b4;
@@ -18,6 +18,7 @@
             --gradient-pink: linear-gradient(135deg, #ff69b4, #ffb6c1, #ffc0cb);
             --text-dark: #2c2c2c;
             --text-light: #666;
+            --shadow-pink: rgba(255, 105, 180, 0.15);
         }
 
         * {
@@ -33,11 +34,103 @@
             overflow-x: hidden;
         }
 
+        /* Enhanced Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         /* Navigation */
         .navbar {
             background: rgba(255, 255, 255, 0.95) !important;
             backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.1);
+            box-shadow: 0 8px 32px var(--shadow-pink);
             transition: all 0.3s ease;
             padding: 1rem 0;
         }
@@ -50,18 +143,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
         }
 
         .navbar-nav .nav-link {
@@ -98,7 +179,7 @@
             width: 100%;
         }
 
-        /* Page Header */
+        /* Page Header with Enhanced Animation */
         .page-header {
             background: var(--gradient-pink);
             color: white;
@@ -119,16 +200,6 @@
             animation: float 20s linear infinite;
         }
 
-        @keyframes float {
-            0% {
-                transform: translateX(-100px) translateY(-100px);
-            }
-
-            100% {
-                transform: translateX(100px) translateY(100px);
-            }
-        }
-
         .page-header h1 {
             font-size: 3.5rem;
             font-weight: 700;
@@ -146,19 +217,7 @@
             animation: fadeInUp 1s ease-out 0.3s both;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Location Section */
+        /* Enhanced Location Cards with Bootstrap */
         .location-section {
             padding: 5rem 0;
             background: linear-gradient(135deg, #fff, var(--light-pink), #fff);
@@ -168,16 +227,34 @@
             background: white;
             border-radius: 20px;
             padding: 2.5rem;
-            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.1);
+            box-shadow: 0 15px 35px var(--shadow-pink);
             margin-bottom: 2rem;
             transition: all 0.4s ease;
             border: 2px solid transparent;
+            position: relative;
+        }
+
+        .location-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-pink);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .location-card:hover::before {
+            opacity: 1;
         }
 
         .location-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
             box-shadow: 0 25px 50px rgba(255, 105, 180, 0.2);
-            border-color: var(--secondary-pink);
         }
 
         .location-icon {
@@ -192,19 +269,29 @@
             color: white;
             font-size: 2rem;
             transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
         }
 
         .location-card:hover .location-icon {
             transform: scale(1.1) rotate(10deg);
+            animation: sparkle 1s ease-in-out infinite;
         }
 
-        .location-card h3 {
-            color: var(--text-dark);
-            margin-bottom: 1rem;
+        /* Bootstrap Alert Integration */
+        .info-alert {
+            background: linear-gradient(135deg, var(--light-pink), rgba(255, 255, 255, 0.9));
+            border: 1px solid var(--secondary-pink);
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .info-alert .alert-heading {
+            color: var(--dark-pink);
             font-weight: 600;
-            text-align: center;
         }
 
+        /* Enhanced Contact Info */
         .contact-info {
             list-style: none;
             padding: 0;
@@ -214,14 +301,16 @@
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
-            padding: 0.5rem;
+            padding: 0.8rem;
             border-radius: 10px;
             transition: all 0.3s ease;
+            background: rgba(255, 105, 180, 0.02);
         }
 
         .contact-info li:hover {
             background: var(--light-pink);
-            transform: translateX(10px);
+            transform: translateX(15px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.1);
         }
 
         .contact-info i {
@@ -230,9 +319,15 @@
             margin-right: 1rem;
             width: 25px;
             text-align: center;
+            transition: all 0.3s ease;
         }
 
-        /* Map Section */
+        .contact-info li:hover i {
+            transform: scale(1.2);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        /* Map Section with Bootstrap Card */
         .map-section {
             background: white;
             padding: 3rem 0;
@@ -241,27 +336,24 @@
         .map-container {
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.1);
-            height: 400px;
-            background: var(--light-pink);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-shadow: 0 15px 35px var(--shadow-pink);
+            height: 450px;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .map-placeholder {
-            text-align: center;
-            color: var(--text-light);
+        .map-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(255, 105, 180, 0.2);
         }
 
-        .map-placeholder i {
-            font-size: 4rem;
-            color: var(--primary-pink);
-            margin-bottom: 1rem;
+        .map-container iframe {
+            transition: all 0.3s ease;
         }
 
-        /* Hours Section */
+        
+
+        /* Enhanced Hours Section with Bootstrap Progress */
         .hours-section {
             background: var(--gradient-pink);
             color: white;
@@ -274,6 +366,13 @@
             border-radius: 20px;
             padding: 2rem;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: bounceIn 1s ease-out;
+        }
+
+        .hours-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .hours-list {
@@ -284,8 +383,17 @@
         .hours-list li {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 0.8rem 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .hours-list li:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
 
         .hours-list li:last-child {
@@ -294,17 +402,30 @@
 
         .day {
             font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .day::before {
+            content: '🌸';
+            margin-right: 0.5rem;
+            animation: sparkle 2s ease-in-out infinite;
         }
 
         .time {
             font-weight: 300;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
         }
 
-        .closed {
-            color: #ffcccb;
+        .hours-list li:hover .time {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
         }
 
-        /* Directions Section */
+        /* Enhanced Directions with Bootstrap Cards */
         .directions-section {
             background: linear-gradient(135deg, var(--light-pink), white);
             padding: 4rem 0;
@@ -315,15 +436,34 @@
             border-radius: 15px;
             padding: 1.5rem;
             margin-bottom: 1rem;
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px var(--shadow-pink);
+            transition: all 0.4s ease;
             display: flex;
             align-items: center;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .direction-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.1), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .direction-card:hover::before {
+            left: 100%;
         }
 
         .direction-card:hover {
-            transform: translateX(10px);
-            box-shadow: 0 12px 35px rgba(255, 105, 180, 0.15);
+            transform: translateX(15px) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.2);
+            border-color: var(--secondary-pink);
         }
 
         .transport-icon {
@@ -338,24 +478,43 @@
             font-size: 1.5rem;
             margin-right: 1.5rem;
             flex-shrink: 0;
+            transition: all 0.3s ease;
+            animation: float 2s ease-in-out infinite;
         }
 
-        .direction-content h5 {
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+        .direction-card:hover .transport-icon {
+            transform: scale(1.1) rotate(360deg);
+            animation: sparkle 1s ease-in-out infinite;
         }
 
-        .direction-content p {
-            color: var(--text-light);
-            margin-bottom: 0;
+        /* Bootstrap Badge Integration */
+        .feature-badge {
+            background: var(--gradient-pink);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: auto;
+            animation: pulse 2s infinite;
         }
 
-        /* CTA Section */
+        /* Enhanced CTA Section */
         .cta-section {
             background: white;
             padding: 4rem 0;
             text-align: center;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 105, 180, 0.05) 0%, transparent 70%);
         }
 
         .btn-custom {
@@ -367,13 +526,33 @@
             font-weight: 600;
             text-decoration: none;
             display: inline-block;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             box-shadow: 0 8px 25px rgba(255, 105, 180, 0.3);
             margin: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-custom::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn-custom:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-custom:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.05);
             box-shadow: 0 15px 35px rgba(255, 105, 180, 0.4);
             color: white;
         }
@@ -389,7 +568,28 @@
             color: white;
         }
 
-        /* Footer */
+        /* Bootstrap Toast Integration */
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1050;
+        }
+
+        .custom-toast {
+            background: white;
+            border: 2px solid var(--secondary-pink);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow-pink);
+        }
+
+        .custom-toast .toast-header {
+            background: var(--gradient-pink);
+            color: white;
+            border-radius: 13px 13px 0 0;
+        }
+
+        /* Enhanced Footer */
         .footer {
             background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
             color: white;
@@ -410,6 +610,7 @@
 
         .footer a:hover {
             color: var(--secondary-pink);
+            transform: translateX(5px);
         }
 
         .social-icons a {
@@ -425,29 +626,9 @@
         }
 
         .social-icons a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .page-header h1 {
-                font-size: 2.5rem;
-            }
-
-            .location-card {
-                padding: 2rem;
-            }
-
-            .direction-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .transport-icon {
-                margin-right: 0;
-                margin-bottom: 1rem;
-            }
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+            animation: sparkle 0.5s ease-in-out;
         }
 
         /* Page Navigation */
@@ -473,12 +654,76 @@
             justify-content: center;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+            animation: float 3s ease-in-out infinite;
         }
 
         .nav-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+            transform: scale(1.15);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.5);
             color: white;
+            animation: sparkle 0.5s ease-in-out;
+        }
+
+        /* Bootstrap Progress Bar Styling */
+        .custom-progress {
+            height: 8px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            margin-top: 1rem;
+        }
+
+        .custom-progress .progress-bar {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            animation: slideInLeft 2s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        /* Responsive Enhancements */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .location-card {
+                padding: 2rem;
+            }
+
+            .direction-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .transport-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* Animation Delays for Staggered Effect */
+        .location-card:nth-child(1) { animation-delay: 0.1s; }
+        .location-card:nth-child(2) { animation-delay: 0.3s; }
+        .location-card:nth-child(3) { animation-delay: 0.5s; }
+
+        .direction-card:nth-child(odd) { animation: fadeInLeft 0.8s ease-out; }
+        .direction-card:nth-child(even) { animation: fadeInRight 0.8s ease-out; }
+
+        /* Bootstrap Spinner Integration */
+        .loading-spinner {
+            color: var(--primary-pink);
         }
     </style>
 </head>
@@ -505,30 +750,64 @@
         </div>
     </nav>
 
+    <!-- Bootstrap Toast for Notifications -->
+    <div class="toast-container" id="toastContainer">
+        <div class="toast custom-toast" id="welcomeToast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fas fa-sparkles me-2"></i>
+                <strong class="me-auto">Welcome to Falak Beauty!</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                We're excited to see you! Check out our location details below.
+            </div>
+        </div>
+    </div>
+
     <section class="page-header">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
-                    <h1><i class="fas fa-map-marker-alt me-3"></i>Visit Our Salon</h1>
-                    <p>Find us in the heart of Al Buraimi, Oman for all your beauty needs</p>
+                    <h1 class="animate__animated animate__fadeInDown">
+                        <i class="fas fa-map-marker-alt me-3"></i>Visit Our Salon
+                    </h1>
+                    <p class="animate__animated animate__fadeInUp animate__delay-1s">
+                        Find us in the heart of Al Buraimi, Oman for all your beauty needs
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Bootstrap Alert Section -->
+    <section class="container mt-5">
+        <div class="alert info-alert" role="alert">
+            <h4 class="alert-heading">
+                <i class="fas fa-info-circle me-2"></i>Location Information
+            </h4>
+            <p class="mb-2">Welcome to Falak Beauty Saloon! We're conveniently located in Al Buraimi, Oman, offering premium beauty services in a luxurious environment.</p>
+            <hr>
+            <p class="mb-0">
+                <i class="fas fa-clock me-2"></i>Open daily from 9:00 AM to 10:00 PM
+                <span class="badge bg-success ms-2">Currently Open</span>
+            </p>
+        </div>
+    </section>
+
     <section class="location-section">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="location-card">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="location-card animate__animated animate__fadeInUp">
                         <div class="location-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <h3>Our Address</h3>
+                        <h3 class="text-center mb-3">Our Address</h3>
                         <ul class="contact-info">
                             <li>
                                 <i class="fas fa-building"></i>
                                 <span>Falak Beauty Saloon</span>
+                                <span class="feature-badge">Premium</span>
                             </li>
                             <li>
                                 <i class="fas fa-road"></i>
@@ -541,25 +820,28 @@
                             <li>
                                 <i class="fas fa-flag"></i>
                                 <span>Oman</span>
+                                <span class="badge bg-primary ms-2">🇴🇲</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="location-card">
+                <div class="col-lg-4 col-md-6">
+                    <div class="location-card animate__animated animate__fadeInUp animate__delay-1s">
                         <div class="location-icon">
                             <i class="fas fa-phone"></i>
                         </div>
-                        <h3>Contact Details</h3>
+                        <h3 class="text-center mb-3">Contact Details</h3>
                         <ul class="contact-info">
                             <li>
                                 <i class="fas fa-phone-alt"></i>
                                 <span>+968 91137862</span>
+                                <span class="feature-badge">Call</span>
                             </li>
                             <li>
                                 <i class="fab fa-whatsapp"></i>
                                 <span>+968 91137862</span>
+                                <span class="badge bg-success ms-2">WhatsApp</span>
                             </li>
                             <li>
                                 <i class="fas fa-envelope"></i>
@@ -568,33 +850,38 @@
                             <li>
                                 <i class="fas fa-user"></i>
                                 <span>Owner: Tabbusum Gohel</span>
+                                <span class="badge bg-warning ms-2">Owner</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="location-card">
+                <div class="col-lg-4 col-md-6">
+                    <div class="location-card animate__animated animate__fadeInUp animate__delay-2s">
                         <div class="location-icon">
                             <i class="fas fa-info-circle"></i>
                         </div>
-                        <h3>Quick Info</h3>
+                        <h3 class="text-center mb-3">Quick Info</h3>
                         <ul class="contact-info">
                             <li>
                                 <i class="fas fa-parking"></i>
                                 <span>Free Parking Available</span>
+                                <span class="badge bg-success ms-2">Free</span>
                             </li>
                             <li>
                                 <i class="fas fa-wheelchair"></i>
                                 <span>Wheelchair Accessible</span>
+                                <span class="badge bg-info ms-2">Accessible</span>
                             </li>
                             <li>
                                 <i class="fas fa-wifi"></i>
                                 <span>Free WiFi</span>
+                                <span class="badge bg-primary ms-2">WiFi</span>
                             </li>
                             <li>
                                 <i class="fas fa-credit-card"></i>
                                 <span>Card & Cash Accepted</span>
+                                <span class="badge bg-secondary ms-2">Payment</span>
                             </li>
                         </ul>
                     </div>
@@ -607,79 +894,79 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                    <div class="text-center mb-4">
+                        <h2 class="display-6 fw-bold text-dark animate__animated animate__fadeInUp">
+                            <i class="fas fa-map me-3"></i>Find Us on Map
+                        </h2>
+                        <p class="lead text-muted animate__animated animate__fadeInUp animate__delay-1s">
+                            Navigate easily to our beautiful salon in Al Buraimi
+                        </p>
+                    </div>
                     <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1913.9705227670474!2d55.8222407!3d24.2264195!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e8ab7b8503a38a9%3A0x8cfcb9ae81a9f6f3!2sFalak%20Beauty%20Saloon%20(only%20for%20ladies)!5e1!3m2!1sen!2sin!4v1751188750090!5m2!1sen!2sin" width="100%" height="450" style="border:0; border-radius: 20px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13640.38665957432!2d55.80992870098963!3d24.234340737935092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e8ab7b8503a38a9%3A0x8cfcb9ae81a9f6f3!2sFalak%20Beauty%20Saloon%20(only%20for%20ladies)!5e1!3m2!1sen!2sin!4v1751204542639!5m2!1sen!2sin"
+                            width="100%" 
+                            height="450" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    
     <section class="hours-section">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <div class="text-center mb-5">
-                        <h2 class="display-5 fw-bold mb-3">Business Hours</h2>
-                        <p class="lead opacity-90">We're here when you need us most</p>
+                    <div class="text-center mb-4">
+                        <h2 class="display-6 fw-bold animate__animated animate__fadeInDown">
+                            <i class="fas fa-clock me-3"></i>Opening Hours
+                        </h2>
+                        <p class="lead opacity-90 animate__animated animate__fadeInUp animate__delay-1s">
+                            We're here to serve you every day of the week
+                        </p>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <div class="hours-card">
-                                <h4 class="mb-3 text-center">
-                                    <i class="fas fa-clock me-2"></i>Weekdays
-                                </h4>
-                                <ul class="hours-list">
-                                    <li>
-                                        <span class="day">Monday</span>
-                                        <span class="time">9:00 AM - 10:00 PM</span>
-                                    </li>
-                                    <li>
-                                        <span class="day">Tuesday</span>
-                                        <span class="time">9:00 AM - 10:00 PM</span>
-                                    </li>
-                                    <li>
-                                        <span class="day">Wednesday</span>
-                                        <span class="time">9:00 AM - 10:00 PM</span>
-                                    </li>
-                                    <li>
-                                        <span class="day">Thursday</span>
-                                        <span class="time">9:00 AM - 10:00 PM</span>
-                                    </li>
-                                    <li>
-                                        <span class="day">Friday</span>
-                                        <span class="time">9:00 AM - 10:00 PM</span>
-                                    </li>
-                                </ul>
-                            </div>
+                    <div class="hours-card">
+                        <ul class="hours-list">
+                            <li>
+                                <span class="day">Sunday</span>
+                                <span class="time">9:00 AM - 10:00 PM</span>
+                            </li>
+                            <li>
+                                <span class="day">Monday</span>
+                                <span class="time">9:00 AM - 10:00 PM</span>
+                            </li>
+                            <li>
+                                <span class="day">Tuesday</span>
+                                <span class="time">9:00 AM - 10:00 PM</span>
+                            </li>
+                            <li>
+                                <span class="day">Wednesday</span>
+                                <span class="time">9:00 AM - 10:00 PM</span>
+                            </li>
+                            <li>
+                                <span class="day">Thursday</span>
+                                <span class="time">9:00 AM - 10:00 PM</span>
+                            </li>
+                            <li>
+                                <span class="day">Friday</span>
+                                <span class="time">9:00 AM - 10:00 PM</span>
+                            </li>
+                            <li>
+                                <span class="day">Saturday</span>
+                                <span class="time">9:00 AM - 10:00 PM</span>
+                            </li>
+                        </ul>
+                        <div class="progress custom-progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="hours-card">
-                                <h4 class="mb-3 text-center">
-                                    <i class="fas fa-calendar-weekend me-2"></i>Weekend
-                                </h4>
-                                <ul class="hours-list">
-                                    <li>
-                                        <span class="day">Saturday</span>
-                                        <span class="time">9:00 AM - 10:00 PM</span>
-                                    </li>
-                                    <li>
-                                        <span class="day">Sunday</span>
-                                        <span class="time">9:00 AM - 10:00 PM</span>
-                                    </li>
-                                    <li>
-                                        <span class="day">Public Holidays</span>
-                                        <span class="time">9:00 AM - 10:00 PM</span>
-                                    </li>
-                                </ul>
-                                <div class="mt-3 text-center">
-                                    <small class="opacity-75">
-                                        <i class="fas fa-info-circle me-1"></i>
-                                        Open daily from 9 AM to 10 PM
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
+                        <p class="text-center mt-3 mb-0 opacity-75">
+                            <i class="fas fa-info-circle me-2"></i>We're currently open 85% of the week for your convenience
+                        </p>
                     </div>
                 </div>
             </div>
@@ -689,54 +976,76 @@
     <section class="directions-section">
         <div class="container">
             <div class="row">
-                <div class="col-12 text-center mb-5">
-                    <h2 class="display-5 fw-bold text-dark mb-3">How to Reach Us</h2>
-                    <p class="lead text-muted">Multiple convenient ways to get to our salon in Al Buraimi</p>
+                <div class="col-12">
+                    <div class="text-center mb-5">
+                        <h2 class="display-6 fw-bold text-dark animate__animated animate__fadeInUp">
+                            <i class="fas fa-route me-3"></i>How to Reach Us
+                        </h2>
+                        <p class="lead text-muted animate__animated animate__fadeInUp animate__delay-1s">
+                            Multiple convenient ways to visit our salon
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-6 mb-4">
+            <div class="row g-3">
+                <div class="col-lg-6">
                     <div class="direction-card">
                         <div class="transport-icon">
                             <i class="fas fa-car"></i>
                         </div>
-                        <div class="direction-content">
-                            <h5>By Car</h5>
-                            <p>Located in the heart of Al Buraimi city. Easy access from all major roads. Ample parking space available.</p>
+                        <div>
+                            <h5 class="mb-2">By Car</h5>
+                            <p class="mb-1">Located in central Al Buraimi with easy access from main roads</p>
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>5 minutes from city center
+                            </small>
                         </div>
+                        <span class="feature-badge">Parking Available</span>
                     </div>
                 </div>
-                <div class="col-lg-6 mb-4">
-                    <div class="direction-card">
-                        <div class="transport-icon">
-                            <i class="fas fa-bus"></i>
-                        </div>
-                        <div class="direction-content">
-                            <h5>By Bus</h5>
-                            <p>Take any bus heading to Al Buraimi city center. We're located in a prime location easily accessible by public transport.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                    <div class="direction-card">
-                        <div class="transport-icon">
-                            <i class="fas fa-motorcycle"></i>
-                        </div>
-                        <div class="direction-content">
-                            <h5>By Taxi</h5>
-                            <p>Tell the driver "Falak Beauty Saloon in Al Buraimi". All local drivers know our location.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 mb-4">
+                <div class="col-lg-6">
                     <div class="direction-card">
                         <div class="transport-icon">
                             <i class="fas fa-walking"></i>
                         </div>
-                        <div class="direction-content">
-                            <h5>On Foot</h5>
-                            <p>If you're in Al Buraimi city center, we're just a short walk away. Look for our beautiful pink signboard.</p>
+                        <div>
+                            <h5 class="mb-2">Walking Distance</h5>
+                            <p class="mb-1">Easily accessible on foot from nearby residential areas</p>
+                            <small class="text-muted">
+                                <i class="fas fa-map-marker-alt me-1"></i>Safe pedestrian pathways
+                            </small>
                         </div>
+                        <span class="feature-badge">Safe Route</span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="direction-card">
+                        <div class="transport-icon">
+                            <i class="fas fa-taxi"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-2">By Taxi</h5>
+                            <p class="mb-1">Local taxis are readily available throughout Al Buraimi</p>
+                            <small class="text-muted">
+                                <i class="fas fa-phone me-1"></i>Call +968 91137862 for directions
+                            </small>
+                        </div>
+                        <span class="feature-badge">24/7 Available</span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="direction-card">
+                        <div class="transport-icon">
+                            <i class="fas fa-map"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-2">GPS Navigation</h5>
+                            <p class="mb-1">Search "Falak Beauty Saloon" or "Al Buraimi Beauty Salon"</p>
+                            <small class="text-muted">
+                                <i class="fas fa-satellite me-1"></i>GPS coordinates available
+                            </small>
+                        </div>
+                        <span class="feature-badge">GPS Ready</span>
                     </div>
                 </div>
             </div>
@@ -747,14 +1056,28 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
-                    <h2 class="display-6 fw-bold text-dark mb-3">Ready to Visit Us?</h2>
-                    <p class="lead text-muted mb-4">Book your appointment now or contact us for any queries</p>
-                    <a href="services.html" class="btn-custom">
-                        <i class="fas fa-calendar-check me-2"></i>Book Appointment
-                    </a>
-                    <a href="tel:+96891137862" class="btn-custom btn-outline-custom">
-                        <i class="fas fa-phone me-2"></i>Call Now
-                    </a>
+                    <h2 class="display-6 fw-bold mb-4 animate__animated animate__fadeInUp">
+                        <i class="fas fa-calendar-check me-3"></i>Ready to Visit Us?
+                    </h2>
+                    <p class="lead text-muted mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                        Book your appointment today and experience the finest beauty treatments in Al Buraimi
+                    </p>
+                    <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="tel:+96891137862" class="btn btn-custom btn-lg me-3">
+                            <i class="fas fa-phone me-2"></i>Call Now
+                        </a>
+                        <a href="https://wa.me/96891137862" class="btn btn-outline-custom btn-lg" target="_blank">
+                            <i class="fab fa-whatsapp me-2"></i>WhatsApp
+                        </a>
+                    </div>
+                    <div class="mt-4">
+                        <div class="spinner-border loading-spinner me-3" role="status" style="display: none;" id="loadingSpinner">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt me-1"></i>Safe and secure booking process
+                        </small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -762,143 +1085,273 @@
 
     <footer class="footer">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4">
-                    <h5><i class="fas fa-sparkles me-2"></i>Falak Beauty</h5>
-                    <p>Your ultimate destination for beauty and style. We transform dreams into reality with our expert
-                        services and premium products.</p>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5>
+                        <i class="fas fa-sparkles me-2"></i>Falak Beauty Saloon
+                    </h5>
+                    <p class="mb-3">Your premier destination for beauty and wellness in Al Buraimi, Oman. We provide exceptional services with a personal touch.</p>
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://wa.me/96891137862" title="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-6 mb-4">
+                <div class="col-lg-2">
                     <h5>Quick Links</h5>
                     <ul class="list-unstyled">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="offers.html">Offers</a></li>
                         <li><a href="services.html">Services</a></li>
+                        <li><a href="offers.html">Offers</a></li>
                         <li><a href="products.html">Products</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4">
+                <div class="col-lg-3">
                     <h5>Services</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Hair Styling</a></li>
-                        <li><a href="#">Makeup</a></li>
-                        <li><a href="#">Skincare</a></li>
-                        <li><a href="#">Nail Art</a></li>
+                        <li><a href="services.html#facial">Facial Treatments</a></li>
+                        <li><a href="services.html#hair">Hair Styling</a></li>
+                        <li><a href="services.html#makeup">Makeup Services</a></li>
+                        <li><a href="services.html#spa">Spa Treatments</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 mb-4">
+                <div class="col-lg-3">
                     <h5>Contact Info</h5>
-                    <p><i class="fas fa-map-marker-alt me-2"></i>Al Buraimi, Oman</p>
-                    <p><i class="fas fa-phone me-2"></i>+968 91137862</p>
-                    <p><i class="fas fa-envelope me-2"></i>info@falakbeauty.com</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Al Buraimi, Oman</li>
+                        <li><i class="fas fa-phone me-2"></i>+968 91137862</li>
+                        <li><i class="fas fa-envelope me-2"></i>info@falakbeauty.com</li>
+                        <li><i class="fas fa-clock me-2"></i>9:00 AM - 10:00 PM</li>
+                    </ul>
                 </div>
             </div>
-            <hr class="my-3">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p>&copy; 2025 Falak Beauty. All rights reserved. Made with <i class="fas fa-heart text-danger"></i>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 Falak Beauty Saloon. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        <i class="fas fa-heart text-danger me-1"></i>
+                        Made with love in Oman
                     </p>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Page Navigation -->
     <div class="page-nav">
-        <a href="index.html" class="nav-btn" title="Home">
-            <i class="fas fa-home"></i>
+        <a href="#" class="nav-btn" onclick="scrollToTop()" title="Back to Top">
+            <i class="fas fa-arrow-up"></i>
         </a>
-        <a href="offers.html" class="nav-btn" title="Offers">
-            <i class="fas fa-tags"></i>
+        <a href="tel:+96891137862" class="nav-btn" title="Call Us">
+            <i class="fas fa-phone"></i>
         </a>
-        <a href="services.html" class="nav-btn" title="Services">
-            <i class="fas fa-cut"></i>
+        <a href="https://wa.me/96891137862" class="nav-btn" title="WhatsApp" target="_blank">
+            <i class="fab fa-whatsapp"></i>
         </a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Animate cards on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.transform = 'translateY(0)';
-                    entry.target.style.opacity = '1';
-                }
-            });
-        }, observerOptions);
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show welcome toast
+            setTimeout(() => {
+                const toast = new bootstrap.Toast(document.getElementById('welcomeToast'));
+                toast.show();
+            }, 1000);
 
-        // Observe all animated elements
-        document.querySelectorAll('.location-card, .direction-card, .hours-card').forEach(card => {
-            card.style.transform = 'translateY(30px)';
-            card.style.opacity = '0';
-            card.style.transition = 'all 0.6s ease-out';
-            observer.observe(card);
+            // Initialize animations when elements come into view
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe location cards
+            document.querySelectorAll('.location-card, .direction-card, .hours-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add current time and date
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 60000); // Update every minute
+
+            // Add click tracking for contact methods
+            trackContactClicks();
+
+            // Initialize map loading
+            initializeMap();
         });
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', {
+                timeZone: 'Asia/Muscat',
+                hour12: true,
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            // Update status badge
+            const statusBadge = document.querySelector('.badge.bg-success');
+            const currentHour = now.getHours();
+            
+            if (currentHour >= 9 && currentHour < 22) {
+                statusBadge.textContent = `Open Now - ${timeString}`;
+                statusBadge.className = 'badge bg-success ms-2';
+            } else {
+                statusBadge.textContent = `Closed - Opens at 9:00 AM`;
+                statusBadge.className = 'badge bg-warning ms-2';
+            }
+        }
+
+        function trackContactClicks() {
+            // Track phone clicks
+            document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+                link.addEventListener('click', function() {
+                    // Show loading spinner
+                    const spinner = document.getElementById('loadingSpinner');
+                    if (spinner) {
+                        spinner.style.display = 'inline-block';
+                        setTimeout(() => {
+                            spinner.style.display = 'none';
+                        }, 2000);
+                    }
+                });
+            });
+
+            // Track WhatsApp clicks
+            document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+                link.addEventListener('click', function() {
+                    // Show success toast
+                    const toastHtml = `
+                        <div class="toast custom-toast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <i class="fab fa-whatsapp me-2"></i>
+                                <strong class="me-auto">WhatsApp</strong>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+                            </div>
+                            <div class="toast-body">
+                                Opening WhatsApp... You'll be redirected shortly!
+                            </div>
+                        </div>
+                    `;
+                    
+                    const toastContainer = document.getElementById('toastContainer');
+                    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+                    
+                    const newToast = toastContainer.lastElementChild;
+                    const toast = new bootstrap.Toast(newToast);
+                    toast.show();
+                    
+                    // Remove toast after it's hidden
+                    newToast.addEventListener('hidden.bs.toast', () => {
+                        newToast.remove();
                     });
-                }
+                });
+            });
+        }
+
+        function initializeMap() {
+            // Add map interaction enhancements
+            const mapContainer = document.querySelector('.map-container');
+            const iframe = mapContainer.querySelector('iframe');
+            
+            // Add loading state
+            iframe.addEventListener('load', function() {
+                mapContainer.classList.add('loaded');
+            });
+
+            // Add click enhancement
+            mapContainer.addEventListener('click', function() {
+                // Add subtle animation on map click
+                this.style.transform = 'scale(1.01)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        }
+
+        // Add hover effects for contact info
+        document.querySelectorAll('.contact-info li').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(15px) scale(1.02)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = '';
             });
         });
 
-        // Navbar background change on scroll
-        window.addEventListener('scroll', () => {
+        // Add navbar scroll effect
+        window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 100) {
                 navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                navbar.style.boxShadow = '0 8px 32px rgba(255, 105, 180, 0.15)';
+                navbar.style.boxShadow = '0 8px 32px rgba(255, 105, 180, 0.2)';
             } else {
                 navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                navbar.style.boxShadow = '0 8px 32px rgba(255, 105, 180, 0.1)';
+                navbar.style.boxShadow = '0 8px 32px rgba(255, 105, 180, 0.15)';
             }
         });
 
-        // Add click tracking for contact links
-        document.querySelectorAll('a[href^="tel:"], a[href^="mailto:"], a[href*="maps.google"]').forEach(link => {
-            link.addEventListener('click', function () {
-                // Track user interactions (for analytics if needed)
-                console.log('Contact link clicked:', this.href);
+        // Add enhanced floating animations
+        function addFloatingAnimation() {
+            const floatingElements = document.querySelectorAll('.location-icon, .transport-icon, .nav-btn');
+            
+            floatingElements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.3}s`;
+                element.style.animationDuration = `${3 + (index % 3)}s`;
             });
+        }
+
+        // Initialize floating animations
+        setTimeout(addFloatingAnimation, 1000);
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Close all open toasts
+                document.querySelectorAll('.toast.show').forEach(toast => {
+                    const bsToast = bootstrap.Toast.getInstance(toast);
+                    if (bsToast) bsToast.hide();
+                });
+            }
         });
 
-        // Add hover effects for interactive elements
-        document.querySelectorAll('.contact-info li').forEach(item => {
-            item.addEventListener('mouseenter', function () {
-                this.style.transform = 'translateX(10px)';
+        // Performance optimization - lazy load animations
+        const lazyAnimationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                } else {
+                    entry.target.style.animationPlayState = 'paused';
+                }
             });
+        }, { threshold: 0.1 });
 
-            item.addEventListener('mouseleave', function () {
-                this.style.transform = 'translateX(0)';
-            });
+        document.querySelectorAll('[class*="animate__"]').forEach(el => {
+            lazyAnimationObserver.observe(el);
         });
-
-        // Initialize page animations
-        window.addEventListener('load', () => {
-            // Stagger animation of location cards
-            const locationCards = document.querySelectorAll('.location-card');
-            locationCards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.transform = 'translateY(0)';
-                    card.style.opacity = '1';
-                }, index * 200);
-            });
-        });
-    
+    </script>
+</body>
+</html>
+                        
